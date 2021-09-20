@@ -2,17 +2,29 @@ const dateOfBirth=document.querySelector("#date-of-birth");
 const luckyNumber=document.querySelector("#lucky-number");
 const checkNumberButton=document.querySelector("#check-number-button");
 const outputBox=document.querySelector("#output-box");
+const errorBox=document.querySelector("#error-box")
 
-checkNumberButton.addEventListener("click",checkBirthDateIsLucky());
+checkNumberButton.addEventListener("click",checkBirthDateIsLucky);
 
 function checkBirthDateIsLucky()
 {
     const dob=dateOfBirth.value;
     const sum=calculateSum(dob);
-    if(sum &&  dob )
+    
+    if(sum &&  dob && Number(luckyNumber.value)>0)
+    {
         compareValues(sum,luckyNumber.value);
-    else
-        outputBox.innerText="Please enter both the fields. 😡";
+        errorBox.style.display="none";
+        outputBox.style.display="block";
+    }
+    else 
+    {
+        outputBox.style.display="none";
+        errorBox.style.display="block";
+        errorBox.innerText="**Please enter both the fields greater than zero. 😡**";
+    }
+    
+        
 }
 
 function calculateSum(dob)
@@ -37,4 +49,6 @@ function compareValues(sum,luckyNumber)
         outputBox.innerText="Your birthday is not lucky 🤐";
     }
 }
+
+
 
